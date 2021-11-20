@@ -5,17 +5,24 @@ const socket = io("http://localhost:3000", {
 const menuDescriptions = document.querySelector(".menuDescriptions"),
     menu = document.querySelector(".menu"),
     editor = document.querySelector(".editor"),
-    settingMenu = document.querySelector(".settingMenu"),
     videoOpenIcon = document.getElementById("video-open-icon"),
     videoClosedIcon = document.getElementById("video-close-icon"),
     audioOpenIcon = document.getElementById("audio-open-icon"),
-    audioClosedIcon = document.getElementById("audio-close-icon");
+    audioClosedIcon = document.getElementById("audio-close-icon"),
+    settingMenu = document.querySelector(".settingMenu"),
+    messageMenu = document.querySelector(".messageMenu");
+
+const menuDescriptionsMappings = {
+    editorSettings: settingMenu,
+    messageMenu: messageMenu,
+};
 
 let currentLanguage = "cpp",
     currentTheme = "monokai",
     currentFontSize = "4",
     currentTabSpacing = "4",
-    currentKeyMap = "";
+    currentKeyMap = "",
+    previouslyVisibleDescriptionMenu = settingMenu;
 
 let ismenuDescriptionsClosed = true,
     isVideoOpen = false,
@@ -44,14 +51,32 @@ function closeMenuDescriptions() {
     editor.style.width = "calc(100% - 300px)";
 }
 
-function openMenuDescription() {
-    if (!ismenuDescriptionsClosed) {
+function openMenuDescription(e) {
+    const selectedMenu = menuDescriptionsMappings[e.id];
+    if (!ismenuDescriptionsClosed && (selectedMenu === previouslyVisibleDescriptionMenu)) {
         closeMenuDescriptions();
         return;
     }
+    previouslyVisibleDescriptionMenu.style.display = "none";
+    selectedMenu.style.display = "block";
     editor.style.width = "calc(100% - 550px)";
     menuDescriptions.style.width = "250px";
     ismenuDescriptionsClosed = false;
+    previouslyVisibleDescriptionMenu = selectedMenu;
+}
+
+function downloadCode() {
+    download("HappyCoding-CodeRoom", codeInstance.getValue());
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }
 
 function handleLanguageSelection(e) {
