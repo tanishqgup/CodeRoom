@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+}
+
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: #30353e;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 100%;
+    width: 10%;
+    margin-left: 20px;
+}
+
+.logo svg {
+    width: 100%;
+    height: 100%;
+}
+
+.buttons {
+    width: 110px;
+    margin-right: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.buttons .share-button {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #30353e;
+    text-decoration: none;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+    line-height: 35px;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.buttons .share-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.buttons .share-button:hover {
+    background-color: #fff;
+    color: #4d76ba;
+}
+
+.main {
+    width: 100%;
+    height: calc(100vh - 50px);
+    display: flex;
+}
+
+.main .menuDescriptions {
+    height: 100%;
+    width: 250px;
+    width: 0;
+    /* width change karni hai */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    transition: all 1s;
+}
+
+.main .menuDescriptions .settingMenu {
+    width: 90%;
+    height: 90%;
+}
+
+.main .menuDescriptions .settingMenu .close {
+    float: right;
+    background-color: #fff;
+    text-decoration: none;
+    border: none;
+    color: rgb(102, 102, 102);
+    cursor: pointer;
+}
+
+.main .menuDescriptions .settingMenu .close i {
+    font-size: 20px;
+}
+
+.main .menuDescriptions .settingMenu .menuName {
+    color: rgb(102, 102, 102);
+    font-size: 32px;
+    font-weight: 200;
+    line-height: 51.2px;
+}
+
+.main .menuDescriptions .settingMenu .inputfield {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.main .menuDescriptions .settingMenu .inputfield label {
+    display: block;
+    color: rgb(142, 144, 149);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+}
+
+.main .menuDescriptions .settingMenu .inputfield select {
+    width: 100%;
+    height: 30px;
+    margin-top: 7px;
+}
+
+.main .menu {
+    height: 100%;
+    width: 50px;
+    background-color: #30353e;
+}
+
+.main .menu .menu-option {
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+
+.main .menu .menu-option button {
+    width: 100%;
+    height: 100%;
+    background-color: #30353e;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+}
+
+.main .menu .menu-option button i {
+    font-size: 18px;
+}
+
+.main .menu .menu-option button svg {
+    height: 20px;
+    width: 20px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.main .menu .menu-option #video-open-icon, #audio-open-icon {
+    display: none;
+}
+
+.main .menu .menu-option button:hover {
+    color: #fff;
+}
+
+.main .menu .option1 {
+    border-top: 1px solid rgb(34, 34, 34);
+}
+
+.main .menu .menu-option {
+    border-bottom: 1px solid rgb(34, 34, 34);
+    position: relative;
+}
+
+.main .menu .menu-option .tooltip {
+    width: max-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 28px;
+    position: absolute;
+    top: 10px;
+    margin-left: 58px;
+    z-index: 100;
+    background-color: #383838;
+    transform: scale(0);
+    display: flex;
+    align-items: center;
+    transition: transform .3s;
+    transform-origin: left;
+}
+
+.main .menu .menu-option .arrow {
+    position: absolute;
+    top: 18.5px;
+    right: -8px;
+    border: 5px solid transparent;
+    border-right-color: #383838;
+    z-index: 100;
+    transform: scale(0);
+    transition: transform .3s;
+    transform-origin: right;
+}
+
+.main .menu .menu-option .tooltip p {
+    color: #fff;
+    font-size: 13px;
+}
+
+.main .menu .menu-option:hover .tooltip,
+.main .menu .menu-option:hover .arrow {
+    transform: scale(1);
+}
+
+.main .editor {
+    width: calc(100% - 300px);
+    height: 100%;
+    transition: width 1s;
+    border-right: 1px solid #fff;
+    font-size: 18px;
+}
+
+.CodeMirror {
+    height: 100%;
+    font-size: inherit;
+}
+
+.main .videotab {
+    height: 100%;
+    width: 250px;
+    background-color: black;
+}

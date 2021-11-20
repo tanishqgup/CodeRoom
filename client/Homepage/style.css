@@ -1,0 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+}
+
+.container {
+    width: 100%;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(30%, #30353e),
+        color-stop(90%, #4d76ba)
+    );
+    background-image: -webkit-linear-gradient(top, #30353e 30%, #4d76ba 90%);
+    background-image: -moz-linear-gradient(top, #30353e 30%, #4d76ba 90%);
+    background-image: linear-gradient(-180deg, #30353e 30%, #4d76ba 90%);
+}
+
+.nav_bar {
+    width: 100%;
+    height: 58px;
+}
+
+.nav_bar .logo-svg-container {
+    width: 140px;
+    height: 100%;
+    padding-left: 20px;
+}
+
+.nav_bar .logo-svg-container svg {
+    width: 100%;
+    height: 100%;
+}
+
+.main-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    width: 100%;
+    height: 1077px;
+    display: flex;
+    align-items: center;
+}
+
+.main-section .content {
+    width: calc(100% - 80px);
+    margin-left: 40px;
+    margin-right: 40px;
+    height: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-section .content .moto {
+    text-align: center;
+    line-height: 1.6;
+    font-size: 48px;
+    font-weight: 300;
+    color: #fff;
+}
+
+.main-section .content .description {
+    text-align: center;
+    line-height: 1.6;
+    color: #d9dadb;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.main-section .content .offer {
+    text-align: center;
+    color: rgb(179, 181, 184);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22.4px;
+    margin-top: 20px;
+}
+
+.main-section .content .buttonContainer {
+    height: 50px;
+    width: 80%;
+    max-width: 450px;
+    min-width: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.main-section .content .buttonContainer .or {
+    text-align: center;
+    line-height: 1.6;
+    color: #d9dadb;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.main-section .content .buttonContainer button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 100%;
+    width: 170px;
+    background-color: rgb(236, 51, 96);
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-weight: 400;
+    line-height: 50px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.main-section .content .buttonContainer button:hover {
+    background-color: rgb(225, 51, 96);
+}
+
+.links {
+    margin-left: 40px;
+    margin-right: 40px;
+    width: calc(100% - 80px);
+    height: 340px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cards {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card1,
+.card2,
+.card3 {
+    width: 30%;
+}
+
+.cards .heading {
+    color: white;
+    line-height: 1.6;
+    font-size: 32px;
+    font-weight: 200;
+}
+
+.cards .description {
+    color: hsla(0, 0%, 100%, 0.8);
+    line-height: 1.6;
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 30px;
+}
+
+.cards .button {
+    font-size: 14px;
+    line-height: 35px;
+    background-color: #4d76ba;
+    text-decoration: none;
+    border: 1px solid #fff;
+    color: #fff;
+    outline: none;
+    font-size: 14px;
+    line-height: 35px;
+    font-weight: 300;
+    padding: 0 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.cards .button:hover {
+    color: #4d76ba;
+    background-color: #fff;
+}
+
+.footer {
+    width: 100%;
+    height: 190px;
+    background-color: #30353e;
+    color: rgb(142, 144, 149);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer a {
+    color: rgb(142, 144, 149);
+}
+
+.footer span {
+    color: red;
+}
+
+@media (max-width: 600px) {
+    .nav_bar .logo-svg-container {
+        padding-left: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .main-section .content {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: calc(100% - 20px);
+    }
+    .main-section .content .moto {
+        font-size: 25px;
+    }
+    .main-section .content .description {
+        font-size: 15px;
+    }
+    .main-section .content .buttonContainer button {
+        height: 80%;
+        width: 120px;
+        font-size: 10px;
+    }
+    .links {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: calc(100% - 20px);
+    }
+    .cards {
+        display: block;
+    }
+    .card1,
+    .card2,
+    .card3 {
+        width: 100%;
+    }
+    .cards .heading {
+        color: white;
+        font-size: 16px;
+    }
+
+    .cards .description {
+        color: hsla(0, 0%, 100%, 0.8);
+        line-height: 1.6;
+        font-size: 14px;
+        font-weight: 300;
+        margin-top: 5px;
+    }
+
+    .cards .button {
+        margin-top: 10px;
+    }
+
+    .card2 .heading,
+    .card3 .heading {
+        margin-top: 30px;
+    }
+}
