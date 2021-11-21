@@ -10,7 +10,10 @@ const menuDescriptions = document.querySelector(".menuDescriptions"),
     audioOpenIcon = document.getElementById("audio-open-icon"),
     audioClosedIcon = document.getElementById("audio-close-icon"),
     settingMenu = document.querySelector(".settingMenu"),
-    messageMenu = document.querySelector(".messageMenu");
+    messageMenu = document.querySelector(".messageMenu"),
+    notificationsCointainer = document.querySelector(
+        ".notificationsCointainer"
+    );
 
 const menuDescriptionsMappings = {
     editorSettings: settingMenu,
@@ -27,6 +30,8 @@ let currentLanguage = "cpp",
 let ismenuDescriptionsClosed = true,
     isVideoOpen = false,
     isAudioOpen = false;
+
+let activeNotificationIds = [];
 
 const languageInEditor = {
     cpp: "text/x-c++src",
@@ -53,7 +58,10 @@ function closeMenuDescriptions() {
 
 function openMenuDescription(e) {
     const selectedMenu = menuDescriptionsMappings[e.id];
-    if (!ismenuDescriptionsClosed && (selectedMenu === previouslyVisibleDescriptionMenu)) {
+    if (
+        !ismenuDescriptionsClosed &&
+        selectedMenu === previouslyVisibleDescriptionMenu
+    ) {
         closeMenuDescriptions();
         return;
     }
@@ -70,13 +78,65 @@ function downloadCode() {
 }
 
 function download(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-    element.style.display = 'none';
+    var element = document.createElement("a");
+    element.setAttribute(
+        "href",
+        "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    );
+    element.setAttribute("download", filename);
+    element.style.display = "none";
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
+}
+
+function appendNotification(notification) {
+    const div = document.createElement("div");
+    div.classList.add("commonNotification");
+    div.id = uuid();
+    activeNotificationIds.push(div.id);
+    const button = document.createElement("button");
+    button.classList.add("closeNotification");
+    button.classList.add(div.id);
+    const i = document.createElement("i");
+    button.setAttribute("onclick", "deleteNotification(this)")
+    i.classList.add("fa");
+    i.classList.add("fa-close");
+    button.append(i);
+    const p = document.createElement("p");
+    p.classList.add("notificationText");
+    p.innerText = notification;
+    div.append(button);
+    div.append(p);
+    notificationsCointainer.append(div);
+    setTimeout(() => {
+        div.style.opacity = "0";
+    }, 3000);
+    setTimeout(() => {
+        const success = removeIdFromActiveNotification(div.id);
+        if(!success) return;
+        notificationsCointainer.removeChild(div);
+    }, 6000);
+}
+
+function removeIdFromActiveNotification(id) {
+    let idx = -1;
+    for(let i = 0; i < activeNotificationIds.length; i++) {
+        if(id === activeNotificationIds[i]) {
+            idx = i;
+        }
+    }
+    if(idx === -1) return false;
+    activeNotificationIds.splice(idx, 1);
+    return true;
+}
+
+function deleteNotification(e) {
+    const id = e.classList[1];
+    const success = removeIdFromActiveNotification(id);
+    if(!success) return;
+    const div = document.getElementById(id);
+    notificationsCointainer.removeChild(div);
 }
 
 function handleLanguageSelection(e) {
@@ -100,7 +160,6 @@ function handleThemeSelection(e) {
 }
 
 function handleKeyMapSelection(e) {
-    console.log("Changed " + e);
     currentKeyMap = e;
 }
 
@@ -154,6 +213,7 @@ socket.on("code-changed", (code) => {
 
 // Running Code
 const runner = async () => {
+    appendNotification("Code is running. Please be patient");
     var runnerid = "";
     await fetch(
         "https://api.paiza.io/runners/create?" +
@@ -207,7 +267,22 @@ const runner = async () => {
             if (json.build_stderr !== null && json.build_stderr !== "") {
                 output += json.build_stderr;
             }
-            // outputeditor1.setValue(output, 1);
             console.log(output);
+            appendNotification(
+                "Code successfully ran. Please see output in output tab"
+            );
         });
 };
+
+// helper functions
+
+function uuid() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+            var r = (Math.random() * 16) | 0,
+                v = c == "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        }
+    );
+}
