@@ -11,13 +11,21 @@ const menuDescriptions = document.querySelector(".menuDescriptions"),
     audioClosedIcon = document.getElementById("audio-close-icon"),
     settingMenu = document.querySelector(".settingMenu"),
     messageMenu = document.querySelector(".messageMenu"),
-    notificationsCointainer = document.querySelector(
-        ".notificationsCointainer"
-    );
+    inputOutputMenu = document.querySelector(".inputOutputMenu"),
+    notificationsCointainer = document.querySelector(".notificationsCointainer"),
+    input = document.getElementById("input"),
+    output = document.getElementById("output");
 
 const menuDescriptionsMappings = {
     editorSettings: settingMenu,
     messageMenu: messageMenu,
+    inputOutputMenu: inputOutputMenu,
+};
+
+const menuButtonsMappings = {
+    editorSettings : "option1",
+    messageMenu: "option4",
+    inputOutputMenu: "option5",
 };
 
 let currentLanguage = "cpp",
@@ -25,7 +33,8 @@ let currentLanguage = "cpp",
     currentFontSize = "4",
     currentTabSpacing = "4",
     currentKeyMap = "",
-    previouslyVisibleDescriptionMenu = settingMenu;
+    previouslyVisibleDescriptionMenu = settingMenu,
+    previouslyVisibleMenuButton = null;
 
 let ismenuDescriptionsClosed = true,
     isVideoOpen = false,
@@ -58,22 +67,31 @@ function closeMenuDescriptions() {
 
 function openMenuDescription(e) {
     const selectedMenu = menuDescriptionsMappings[e.id];
+    const selectedMenuButton = document.getElementById(e.id);
     if (
         !ismenuDescriptionsClosed &&
         selectedMenu === previouslyVisibleDescriptionMenu
     ) {
+        selectedMenuButton.style.backgroundColor = "#30353e";
+        previouslyVisibleMenuButton = null;
         closeMenuDescriptions();
         return;
     }
+    selectedMenuButton.style.backgroundColor = "gray";
     previouslyVisibleDescriptionMenu.style.display = "none";
+    if(previouslyVisibleMenuButton !== null) {
+        previouslyVisibleMenuButton.style.backgroundColor = "#30353e";
+    }
     selectedMenu.style.display = "block";
     editor.style.width = "calc(100% - 550px)";
     menuDescriptions.style.width = "250px";
     ismenuDescriptionsClosed = false;
     previouslyVisibleDescriptionMenu = selectedMenu;
+    previouslyVisibleMenuButton = selectedMenuButton;
 }
 
 function downloadCode() {
+    appendNotification("Starting download")
     download("HappyCoding-CodeRoom", codeInstance.getValue());
 }
 
@@ -186,16 +204,12 @@ function toggleAudio() {
 }
 
 // Working with socketio Rooms
-const roomId = "1";
-const userId = "Tanishq";
+const roomId = prompt("Enter your roomId");
+const userName = prompt("Enter your Name");
 
 // when a user joins room
-socket.emit("join-Room", { roomId, userId });
+socket.emit("join-Room", { roomId, userName });
 
-// 1. receive acknowledgement from server
-socket.on("newUserJoined", (userId) => {
-    console.log(userId + " has joined the room");
-});
 // 2. Sending code to server
 editor.addEventListener("keyup", () => {
     socket.emit("code-changed", codeInstance.getValue());
@@ -203,8 +217,9 @@ editor.addEventListener("keyup", () => {
 
 // Receiving data from servers
 // 1. receive acknowledgement from server
-socket.on("newUserJoined", (userId) => {
-    console.log(userId + " has joined the room");
+socket.on("newUserJoined", (userName) => {
+    console.log(userName + " has joined the room");
+    appendNotification(userName + " has landed in the room");
 });
 // 2. receive code from server
 socket.on("code-changed", (code) => {
@@ -220,7 +235,7 @@ const runner = async () => {
             new URLSearchParams({
                 source_code: codeInstance.getValue(),
                 language: currentLanguage,
-                input: "",
+                input: input.value,
                 longpoll: "true",
                 api_key: "guest",
             }),
@@ -257,17 +272,17 @@ const runner = async () => {
     )
         .then((response) => response.json())
         .then((json) => {
-            var output = "";
+            var out = "";
             if (json.stdout !== null && json.stdout !== "") {
-                output += json.stdout;
+                out += json.stdout;
             }
             if (json.stderr !== null && json.stderr !== "") {
-                output += json.stderr;
+                out += json.stderr;
             }
             if (json.build_stderr !== null && json.build_stderr !== "") {
-                output += json.build_stderr;
+                out += json.build_stderr;
             }
-            console.log(output);
+            output.value = out;
             appendNotification(
                 "Code successfully ran. Please see output in output tab"
             );

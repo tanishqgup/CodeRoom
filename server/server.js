@@ -9,12 +9,12 @@ app.use(express.static(path.join("../client")));
 
 io.on("connection", (socket) => {
     console.log("A user connected");
-    socket.on("join-Room", ({ roomId, userId }) => {
+    socket.on("join-Room", ({ roomId, userName }) => {
         console.log("user joined the room");
         
         socket.join(roomId);
 
-        socket.broadcast.to(roomId).emit("newUserJoined", userId);
+        socket.broadcast.to(roomId).emit("newUserJoined", userName);
 
         socket.on("code-changed", (code) => {
             socket.broadcast.to(roomId).emit("code-changed", code);

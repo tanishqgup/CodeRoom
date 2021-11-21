@@ -217,6 +217,20 @@
                         </button>
                     </div>
                 </div>
+                <div class="inputOutputMenu commonMenu">
+                    <button class="close" onclick="closeMenuDescriptions()">
+                        <i class="fa fa-close"></i>
+                    </button>
+                    <p class="menuName">Input</p>
+                    <div class="outerfakeDiv">
+                        <textarea name="input" id="input"></textarea>
+                    </div>
+                    <hr>
+                    <p class="menuName">Output</p>
+                    <div class="outerfakeDiv">
+                        <textarea readonly name="output" id="output"></textarea>
+                    </div>
+                </div>
             </div>
             <div class="menu">
                 <div class="menu-option option1">
@@ -256,12 +270,12 @@
                     </div>
                 </div>
                 <div class="menu-option option5">
-                    <button onclick="openMenuDescription(this)">
+                    <button id="inputOutputMenu" onclick="openMenuDescription(this)">
                         <i class="fa fa-edit"></i>
                     </button>
                     <div class="arrow"></div>
                     <div class="tooltip">
-                        <p>Input</p>
+                        <p>Input/Output</p>
                     </div>
                 </div>
                 <div class="menu-option option6">

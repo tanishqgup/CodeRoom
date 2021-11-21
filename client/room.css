@@ -78,10 +78,6 @@
     transition: all 1s;
 }
 
-.main .menuDescriptions .messageMenu {
-    display: none;
-}
-
 .main .menuDescriptions .commonMenu {
     width: 90%;
     height: 90%;
@@ -164,6 +160,42 @@
     color: #fff;
 }
 
+.main .menuDescriptions .inputOutputMenu p:last-child {
+    margin-top: 20px;
+    background-color: red;
+}
+
+.main .menuDescriptions .inputOutputMenu hr {
+    margin-top: 20px;
+    opacity: 0;
+}
+
+.main .menuDescriptions .inputOutputMenu .outerfakeDiv {
+    width: 100%;
+    height: 40%;
+    border: 1px solid black;
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.main .menuDescriptions .inputOutputMenu textarea{
+    resize: none;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    width: 97%;
+    height: 98%;
+    word-wrap:initial;
+    font-size: 16px;
+}
+
+.main .menuDescriptions .messageMenu, .inputOutputMenu {
+    display: none;
+}
+
 .main .menu {
     height: 100%;
     width: 50px;
@@ -180,7 +212,7 @@
     width: 100%;
     height: 100%;
     background-color: #30353e;
-    color: rgba(255, 255, 255, 0.6);
+    /* color: rgba(255, 255, 255, 0.6); */
     cursor: pointer;
     text-decoration: none;
     border: none;
@@ -188,12 +220,13 @@
 
 .main .menu .menu-option button i {
     font-size: 18px;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .main .menu .menu-option button svg {
     height: 20px;
     width: 20px;
-    color: rgba(255, 255, 255, 0.6);
+    /* color: rgba(255, 255, 255, 0.6); */
 }
 
 .main .menu .menu-option #video-open-icon,
@@ -201,12 +234,8 @@
     display: none;
 }
 
-.main .menu .menu-option button:hover {
+.main .menu .menu-option button:hover i {
     color: #fff;
-}
-
-.main .menu .option1 {
-    border-top: 1px solid rgb(34, 34, 34);
 }
 
 .main .menu .menu-option {
