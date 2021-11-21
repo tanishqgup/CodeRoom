@@ -204,8 +204,8 @@ function toggleAudio() {
 }
 
 // Working with socketio Rooms
-const roomId = prompt("Enter your roomId");
-const userName = prompt("Enter your Name");
+const roomId = 1//prompt("Enter your roomId");
+const userName = "tanishq"//prompt("Enter your Name");
 
 // when a user joins room
 socket.emit("join-Room", { roomId, userName });

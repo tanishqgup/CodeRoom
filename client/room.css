@@ -68,8 +68,8 @@
 
 .main .menuDescriptions {
     height: 100%;
-    /* width: 250px; */
-    width: 0;
+    width: 250px;
+    /* width: 0; */
     /* width change karni hai */
     display: flex;
     align-items: center;
@@ -139,17 +139,17 @@
 }
 
 .main .menuDescriptions .messageMenu .sender .messageInput {
-    width: 83%;
+    width: 78%;
     height: 100%;
     margin-left: 5%;
     border: none;
     text-decoration: none;
     outline: none;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 0 5px;
 }
 
 .main .menuDescriptions .messageMenu .sender .sendMessageButton {
-    width: 10%;
+    width: 15%;
     height: 100%;
     border-radius: 0 0 5px 0;
     outline: none;
@@ -158,6 +158,83 @@
     cursor: pointer;
     background-color: #30353e;;
     color: #fff;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .myMessageContainer {
+    margin-top: 5px;
+    float: right;
+    border-radius: 5px 0 5px 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.main .menuDescriptions .messageMenu .messageContainer .myMessage {
+    border-radius: 5px 0 5px 5px;
+    font-size: 15px;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .myMessage .messageContent {
+    background-color: rgb(149, 149, 241);
+    max-width: 180px;
+    border-radius: 5px 0 5px 5px;
+    padding: 7px;
+    word-wrap: break-word;
+    color: #fff;
+    font-size: 14px;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .myMessage .messageSender {
+    font-size: 12px;
+    float: right;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .myMessageContainer .messageArrow {
+    width: 1px;
+    height: 1px;
+    border: 7px solid transparent;
+    border-left-color: rgb(149, 149, 241);;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .otherMessageContainer {
+    margin-top: 5px;
+    float: left;
+    border-radius: 5px 0 5px 5px;
+    display: flex;
+}
+
+
+.main .menuDescriptions .messageMenu .messageContainer .otherMessage {
+    float: left;
+    border-radius: 5px 0 5px 5px;
+    font-size: 15px;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .otherMessage .othermessageContent {
+    background-color: rgb(149, 149, 241);
+    max-width: 180px;
+    border-radius: 0 5px 5px 5px;
+    padding: 7px;
+    word-wrap: break-word;
+    color: #fff;
+    font-size: 14px;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .otherMessage .othermessageSender {
+    font-size: 12px;
+    float: left;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer .otherMessageContainer .messageArrow {
+    width: 1px;
+    height: 1px;
+    border: 7px solid transparent;
+    border-right-color: rgb(149, 149, 241);;
 }
 
 .main .menuDescriptions .inputOutputMenu p:last-child {
@@ -192,7 +269,7 @@
     font-size: 16px;
 }
 
-.main .menuDescriptions .messageMenu, .inputOutputMenu {
+.main .menuDescriptions .settingMenu, .inputOutputMenu {
     display: none;
 }
 
@@ -283,7 +360,7 @@
 }
 
 .main .editor {
-    width: calc(100% - 300px); 
+    width: calc(100% - 300px - 250px); 
     height: 100%;
     transition: width 1s;
     border-right: 1px solid #fff;
