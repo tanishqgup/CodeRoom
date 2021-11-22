@@ -5,7 +5,9 @@ const server = require("http").createServer(app);
 const socketio = require("socket.io");
 const io = socketio(server);
 
-app.use(express.static(path.join("../client")));
+const port = process.env.PORT || 3000;
+
+app.use(express.static(path.join("./client")));
 
 io.on("connection", (socket) => {
     console.log("A user connected");
@@ -26,6 +28,6 @@ io.on("connection", (socket) => {
     });
 });
 
-server.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+server.listen(port, () => {
+    console.log("Server is listening on port " + port);
 });
