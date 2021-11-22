@@ -68,8 +68,8 @@
 
 .main .menuDescriptions {
     height: 100%;
-    width: 250px;
-    /* width: 0; */
+    /* width: 250px; */
+    width: 0;
     /* width change karni hai */
     display: flex;
     align-items: center;
@@ -106,6 +106,7 @@
 .main .menuDescriptions .settingMenu .inputfield {
     margin-top: 30px;
     width: 100%;
+    transition: width 1s;
 }
 
 .main .menuDescriptions .settingMenu .inputfield label {
@@ -125,7 +126,7 @@
 .main .menuDescriptions .messageMenu .messageContainer {
     width: 100%;
     height: 80%;
-    margin-top: 30px;
+    margin-top: 25px;
     border-radius: 5px 5px 0 0;
     border: 1px solid #30353e;;
     border-bottom: none;
@@ -163,6 +164,21 @@
 .main .menuDescriptions .messageMenu .messageContainer {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
+    overflow-x:hidden;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer::-webkit-scrollbar-thumb {
+    background-color: #a3acbe;;
+    border-radius: 5px;
+}
+
+.main .menuDescriptions .messageMenu .messageContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #8790a1;
 }
 
 .main .menuDescriptions .messageMenu .messageContainer .myMessageContainer {
@@ -172,7 +188,6 @@
     display: flex;
     justify-content: flex-end;
 }
-
 
 .main .menuDescriptions .messageMenu .messageContainer .myMessage {
     border-radius: 5px 0 5px 5px;
@@ -192,6 +207,7 @@
 .main .menuDescriptions .messageMenu .messageContainer .myMessage .messageSender {
     font-size: 12px;
     float: right;
+    color: gray;
 }
 
 .main .menuDescriptions .messageMenu .messageContainer .myMessageContainer .messageArrow {
@@ -228,6 +244,7 @@
 .main .menuDescriptions .messageMenu .messageContainer .otherMessage .othermessageSender {
     font-size: 12px;
     float: left;
+    color: gray;
 }
 
 .main .menuDescriptions .messageMenu .messageContainer .otherMessageContainer .messageArrow {
@@ -235,16 +252,6 @@
     height: 1px;
     border: 7px solid transparent;
     border-right-color: rgb(149, 149, 241);;
-}
-
-.main .menuDescriptions .inputOutputMenu p:last-child {
-    margin-top: 20px;
-    background-color: red;
-}
-
-.main .menuDescriptions .inputOutputMenu hr {
-    margin-top: 20px;
-    opacity: 0;
 }
 
 .main .menuDescriptions .inputOutputMenu .outerfakeDiv {
@@ -269,7 +276,7 @@
     font-size: 16px;
 }
 
-.main .menuDescriptions .settingMenu, .inputOutputMenu {
+.main .menuDescriptions .messageMenu, .inputOutputMenu {
     display: none;
 }
 
@@ -360,7 +367,7 @@
 }
 
 .main .editor {
-    width: calc(100% - 300px - 250px); 
+    width: calc(100% - 300px); 
     height: 100%;
     transition: width 1s;
     border-right: 1px solid #fff;

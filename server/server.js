@@ -19,6 +19,10 @@ io.on("connection", (socket) => {
         socket.on("code-changed", (code) => {
             socket.broadcast.to(roomId).emit("code-changed", code);
         });
+
+        socket.on("messageSent", ({message, user, time}) => {
+            socket.broadcast.to(roomId).emit("messageReceived", {message, user, time});
+        });
     });
 });
 

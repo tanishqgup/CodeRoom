@@ -209,44 +209,17 @@
                         <i class="fa fa-close"></i>
                     </button>
                     <p class="menuName">Messages</p>
-                    <div class="messageContainer">
-                        <div class="myMessageContainer">
-                            <div class="myMessage">
-                                <div class="messageContent">
-                                    <p>Hi how are you ?</p>
-                                </div>
-                                <div class="messageSender">
-                                    <p>You</p>
-                                </div>
-                            </div>
-                            <div class="messageArrow"></div>
-                        </div>
-                        <div class="myMessageContainer">
-                            <div class="myMessage">
-                                <div class="messageContent">
-                                    <p>Please Reply.</p>
-                                </div>
-                                <div class="messageSender">
-                                    <p>You</p>
-                                </div>
-                            </div>
-                            <div class="messageArrow"></div>
-                        </div>
-                        <div class="otherMessageContainer">
-                            <div class="messageArrow"></div>
-                            <div class="otherMessage">
-                                <div class="othermessageContent">
-                                    <p>I am busy. Please wait</p>
-                                </div>
-                                <div class="othermessageSender">
-                                    <p>Prakhar</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="messageContainer"></div>
                     <div class="sender">
-                        <input type="text" class="messageInput" placeholder="Type your message here">
-                        <button class="sendMessageButton">
+                        <input
+                            type="text"
+                            class="messageInput"
+                            placeholder="Type your message here"
+                        />
+                        <button
+                            class="sendMessageButton"
+                            onclick="sendMessage()"
+                        >
                             <i class="fa fa-paper-plane"></i>
                         </button>
                     </div>
@@ -259,7 +232,6 @@
                     <div class="outerfakeDiv">
                         <textarea name="input" id="input"></textarea>
                     </div>
-                    <hr>
                     <p class="menuName">Output</p>
                     <div class="outerfakeDiv">
                         <textarea readonly name="output" id="output"></textarea>
@@ -268,7 +240,10 @@
             </div>
             <div class="menu">
                 <div class="menu-option option1">
-                    <button id="editorSettings" onclick="openMenuDescription(this)">
+                    <button
+                        id="editorSettings"
+                        onclick="openMenuDescription(this)"
+                    >
                         <i class="fa fa-cog"></i>
                     </button>
                     <div class="arrow"></div>
@@ -295,7 +270,10 @@
                     </div>
                 </div>
                 <div class="menu-option option4">
-                    <button id="messageMenu" onclick="openMenuDescription(this)">
+                    <button
+                        id="messageMenu"
+                        onclick="openMenuDescription(this)"
+                    >
                         <i class="fa fa-comment"></i>
                     </button>
                     <div class="arrow"></div>
@@ -304,7 +282,10 @@
                     </div>
                 </div>
                 <div class="menu-option option5">
-                    <button id="inputOutputMenu" onclick="openMenuDescription(this)">
+                    <button
+                        id="inputOutputMenu"
+                        onclick="openMenuDescription(this)"
+                    >
                         <i class="fa fa-edit"></i>
                     </button>
                     <div class="arrow"></div>
@@ -314,7 +295,10 @@
                 </div>
                 <div class="menu-option option6">
                     <button onclick="toggleAudio()">
-                        <i class="fa fa-microphone-slash" id="audio-close-icon"></i>
+                        <i
+                            class="fa fa-microphone-slash"
+                            id="audio-close-icon"
+                        ></i>
                         <i class="fa fa-microphone" id="audio-open-icon"></i>
                     </button>
                     <div class="arrow"></div>
@@ -324,8 +308,18 @@
                 </div>
                 <div class="menu-option option7">
                     <button onclick="toggleVideo()">
-                        <i id="video-close-icon"><svg fill="rgba(255, 255, 255, 0.6)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M32 399.1c0 26.51 21.49 47.1 47.1 47.1h287.1c19.57 0 36.34-11.75 43.81-28.56L32 121.8L32 399.1zM630.8 469.1l-89.21-69.92l15.99 11.02c21.22 14.59 50.41-.2971 50.41-25.8V127.5c0-25.41-29.07-40.37-50.39-25.76l-109.6 75.56l.0001 148.5l-32-25.08l.0001-188.7c0-26.51-21.49-47.1-47.1-47.1H113.9L38.81 5.111C34.41 1.673 29.19 0 24.03 0C16.91 0 9.84 3.158 5.121 9.189C-3.066 19.63-1.249 34.72 9.189 42.89l591.1 463.1c10.5 8.203 25.57 6.328 33.69-4.078C643.1 492.4 641.2 477.3 630.8 469.1z"/></svg></i>
-                        <i id="video-open-icon"><svg fill="rgba(255, 255, 255, 0.6)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M384 112v288c0 26.51-21.49 48-48 48h-288c-26.51 0-48-21.49-48-48v-288c0-26.51 21.49-48 48-48h288C362.5 64 384 85.49 384 112zM576 127.5v256.9c0 25.5-29.17 40.39-50.39 25.79L416 334.7V177.3l109.6-75.56C546.9 87.13 576 102.1 576 127.5z"/></svg></i>
+                        <i id="video-close-icon">
+                            <svg fill="rgba(255, 255, 255, 0.6)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" >
+                                <path d="M32 399.1c0 26.51 21.49 47.1 47.1 47.1h287.1c19.57 0 36.34-11.75 43.81-28.56L32 121.8L32 399.1zM630.8 469.1l-89.21-69.92l15.99 11.02c21.22 14.59 50.41-.2971 50.41-25.8V127.5c0-25.41-29.07-40.37-50.39-25.76l-109.6 75.56l.0001 148.5l-32-25.08l.0001-188.7c0-26.51-21.49-47.1-47.1-47.1H113.9L38.81 5.111C34.41 1.673 29.19 0 24.03 0C16.91 0 9.84 3.158 5.121 9.189C-3.066 19.63-1.249 34.72 9.189 42.89l591.1 463.1c10.5 8.203 25.57 6.328 33.69-4.078C643.1 492.4 641.2 477.3 630.8 469.1z"
+                                /></svg></i>
+                        <i id="video-open-icon"
+                            ><svg
+                                fill="rgba(255, 255, 255, 0.6)"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 576 512"
+                            >
+                                <path
+                                    d="M384 112v288c0 26.51-21.49 48-48 48h-288c-26.51 0-48-21.49-48-48v-288c0-26.51 21.49-48 48-48h288C362.5 64 384 85.49 384 112zM576 127.5v256.9c0 25.5-29.17 40.39-50.39 25.79L416 334.7V177.3l109.6-75.56C546.9 87.13 576 102.1 576 127.5z" /></svg></i>
                     </button>
                     <div class="arrow"></div>
                     <div class="tooltip">
@@ -334,8 +328,7 @@
                 </div>
             </div>
             <div class="editor">
-                <div class="notificationsCointainer">
-                </div>
+                <div class="notificationsCointainer"></div>
             </div>
             <div class="videotab">
                 <video class="video1 commonVideo"></video>

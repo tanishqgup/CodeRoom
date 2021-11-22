@@ -1,6 +1,7 @@
 const socket = io("http://localhost:3000", {
     transports: ["websocket", "polling", "flashsocket"],
 });
+const today = new Date();
 
 const menuDescriptions = document.querySelector(".menuDescriptions"),
     menu = document.querySelector(".menu"),
@@ -12,9 +13,13 @@ const menuDescriptions = document.querySelector(".menuDescriptions"),
     settingMenu = document.querySelector(".settingMenu"),
     messageMenu = document.querySelector(".messageMenu"),
     inputOutputMenu = document.querySelector(".inputOutputMenu"),
-    notificationsCointainer = document.querySelector(".notificationsCointainer"),
+    notificationsCointainer = document.querySelector(
+        ".notificationsCointainer"
+    ),
     input = document.getElementById("input"),
-    output = document.getElementById("output");
+    output = document.getElementById("output"),
+    messageInput = document.querySelector(".messageInput"),
+    messageContainer = document.querySelector(".messageContainer");
 
 const menuDescriptionsMappings = {
     editorSettings: settingMenu,
@@ -23,7 +28,7 @@ const menuDescriptionsMappings = {
 };
 
 const menuButtonsMappings = {
-    editorSettings : "option1",
+    editorSettings: "option1",
     messageMenu: "option4",
     inputOutputMenu: "option5",
 };
@@ -79,7 +84,7 @@ function openMenuDescription(e) {
     }
     selectedMenuButton.style.backgroundColor = "gray";
     previouslyVisibleDescriptionMenu.style.display = "none";
-    if(previouslyVisibleMenuButton !== null) {
+    if (previouslyVisibleMenuButton !== null) {
         previouslyVisibleMenuButton.style.backgroundColor = "#30353e";
     }
     selectedMenu.style.display = "block";
@@ -91,7 +96,7 @@ function openMenuDescription(e) {
 }
 
 function downloadCode() {
-    appendNotification("Starting download")
+    appendNotification("Starting download");
     download("HappyCoding-CodeRoom", codeInstance.getValue());
 }
 
@@ -117,7 +122,7 @@ function appendNotification(notification) {
     button.classList.add("closeNotification");
     button.classList.add(div.id);
     const i = document.createElement("i");
-    button.setAttribute("onclick", "deleteNotification(this)")
+    button.setAttribute("onclick", "deleteNotification(this)");
     i.classList.add("fa");
     i.classList.add("fa-close");
     button.append(i);
@@ -132,19 +137,69 @@ function appendNotification(notification) {
     }, 3000);
     setTimeout(() => {
         const success = removeIdFromActiveNotification(div.id);
-        if(!success) return;
+        if (!success) return;
         notificationsCointainer.removeChild(div);
     }, 6000);
 }
 
+function appendMessageOfOther(message, user, time) {
+    const otherMessageContainerDiv = document.createElement("div");
+    otherMessageContainerDiv.classList.add("otherMessageContainer");
+    const messageArrowDiv = document.createElement("div");
+    messageArrowDiv.classList.add("messageArrow");
+    const otherMessageDiv = document.createElement("div");
+    otherMessageDiv.classList.add("otherMessage");
+    const othermessageContentDiv = document.createElement("div");
+    othermessageContentDiv.classList.add("othermessageContent");
+    const messageP = document.createElement("p");
+    messageP.innerText = message;
+    const othermessageSenderDiv = document.createElement("div");
+    othermessageSenderDiv.classList.add("othermessageSender");
+    const otherMessageSenderP = document.createElement("p");
+    otherMessageSenderP.innerText = user + " | " + time;
+    othermessageSenderDiv.append(otherMessageSenderP);
+    othermessageContentDiv.append(messageP);
+    otherMessageDiv.append(othermessageContentDiv);
+    otherMessageDiv.append(othermessageSenderDiv);
+    otherMessageContainerDiv.append(messageArrowDiv);
+    otherMessageContainerDiv.append(otherMessageDiv);
+    messageContainer.append(otherMessageContainerDiv);
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+function appendMessageOfMe(message, user, time) {
+    const myMessageContainerDiv = document.createElement("div");
+    myMessageContainerDiv.classList.add("myMessageContainer");
+    const messageArrowDiv = document.createElement("div");
+    messageArrowDiv.classList.add("messageArrow");
+    const myMessageDiv = document.createElement("div");
+    myMessageDiv.classList.add("myMessage");
+    const messageContentDiv = document.createElement("div");
+    messageContentDiv.classList.add("messageContent");
+    const messageP = document.createElement("p");
+    messageP.innerText = message;
+    const messageSenderDiv = document.createElement("div");
+    messageSenderDiv.classList.add("messageSender");
+    const MessageSenderP = document.createElement("p");
+    MessageSenderP.innerText = user + " | " + time;
+    messageSenderDiv.append(MessageSenderP);
+    messageContentDiv.append(messageP);
+    myMessageDiv.append(messageContentDiv);
+    myMessageDiv.append(messageSenderDiv);
+    myMessageContainerDiv.append(myMessageDiv);
+    myMessageContainerDiv.append(messageArrowDiv);
+    messageContainer.append(myMessageContainerDiv);
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
 function removeIdFromActiveNotification(id) {
     let idx = -1;
-    for(let i = 0; i < activeNotificationIds.length; i++) {
-        if(id === activeNotificationIds[i]) {
+    for (let i = 0; i < activeNotificationIds.length; i++) {
+        if (id === activeNotificationIds[i]) {
             idx = i;
         }
     }
-    if(idx === -1) return false;
+    if (idx === -1) return false;
     activeNotificationIds.splice(idx, 1);
     return true;
 }
@@ -152,7 +207,7 @@ function removeIdFromActiveNotification(id) {
 function deleteNotification(e) {
     const id = e.classList[1];
     const success = removeIdFromActiveNotification(id);
-    if(!success) return;
+    if (!success) return;
     const div = document.getElementById(id);
     notificationsCointainer.removeChild(div);
 }
@@ -160,6 +215,15 @@ function deleteNotification(e) {
 function handleLanguageSelection(e) {
     currentLanguage = e;
     codeInstance.setOption("mode", languageInEditor[e]);
+}
+
+function sendMessage() {
+    if (messageInput.value === "" || messageInput.value.trim() === "") {
+        return;
+    }
+    appendMessageOfMe(messageInput.value, "You", today.getHours() + ":" + today.getMinutes());
+    sendMessageToServer(messageInput.value, "Tanishq", today.getHours() + ":" + today.getMinutes());
+    messageInput.value = "";
 }
 
 function handleFontSizeSelection(e) {
@@ -203,11 +267,19 @@ function toggleAudio() {
     isAudioOpen = !isAudioOpen;
 }
 
-// Working with socketio Rooms
-const roomId = 1//prompt("Enter your roomId");
-const userName = "tanishq"//prompt("Enter your Name");
+// eventlistners
+messageInput.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector(".sendMessageButton").click();
+    }
+});
 
-// when a user joins room
+// Working with socketio Rooms
+const roomId = 1; //prompt("Enter your roomId");
+const userName = "tanishq"; //prompt("Enter your Name");
+
+// 1. when a user joins room
 socket.emit("join-Room", { roomId, userName });
 
 // 2. Sending code to server
@@ -215,15 +287,25 @@ editor.addEventListener("keyup", () => {
     socket.emit("code-changed", codeInstance.getValue());
 });
 
+// 3. when a user send message
+function sendMessageToServer(message, user, time) {
+    socket.emit("messageSent", { message, user, time });
+}
+
 // Receiving data from servers
 // 1. receive acknowledgement from server
 socket.on("newUserJoined", (userName) => {
     console.log(userName + " has joined the room");
     appendNotification(userName + " has landed in the room");
+
 });
 // 2. receive code from server
 socket.on("code-changed", (code) => {
     codeInstance.setOption("value", code);
+});
+// 3. receive message from other users
+socket.on("messageReceived", ({ message, user, time }) => {
+    appendMessageOfOther(message, user, time);
 });
 
 // Running Code
