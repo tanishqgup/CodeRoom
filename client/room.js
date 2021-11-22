@@ -1,6 +1,8 @@
 const socket = io("http://localhost:3000", {
     transports: ["websocket", "polling", "flashsocket"],
 });
+// const socket = io();
+
 const today = new Date();
 
 const menuDescriptions = document.querySelector(".menuDescriptions"),
