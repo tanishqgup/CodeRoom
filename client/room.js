@@ -1,5 +1,5 @@
 const socket = io("http://localhost:3000", {
-    transports: ["websocket", "polling", "flashsocket"],
+    transports: ["websocket"],
 });
 // const socket = io();
 
