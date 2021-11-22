@@ -68,6 +68,8 @@ function closeMenuDescriptions() {
     menuDescriptions.style.width = "0px";
     ismenuDescriptionsClosed = true;
     editor.style.width = "calc(100% - 300px)";
+    previouslyVisibleMenuButton.style.backgroundColor = "#30353e";
+    previouslyVisibleMenuButton = null;
 }
 
 function openMenuDescription(e) {
