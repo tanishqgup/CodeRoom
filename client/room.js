@@ -1,7 +1,7 @@
 // const socket = io("http://localhost:3000", {
 //     transports: ["websocket"],
 // });
-const socket = io("/");
+const socket = io("/"); // for heroku
 
 const today = new Date();
 
@@ -67,6 +67,7 @@ const codeInstance = CodeMirror(editor, {
 
 function closeMenuDescriptions() {
     if (ismenuDescriptionsClosed) throw null;
+    console.log(previouslyVisibleMenuButton);
     menuDescriptions.style.width = "0px";
     ismenuDescriptionsClosed = true;
     editor.style.width = "calc(100% - 300px)";
@@ -82,7 +83,6 @@ function openMenuDescription(e) {
         selectedMenu === previouslyVisibleDescriptionMenu
     ) {
         selectedMenuButton.style.backgroundColor = "#30353e";
-        previouslyVisibleMenuButton = null;
         closeMenuDescriptions();
         return;
     }
