@@ -67,7 +67,6 @@ const codeInstance = CodeMirror(editor, {
 
 function closeMenuDescriptions() {
     if (ismenuDescriptionsClosed) throw null;
-    console.log(previouslyVisibleMenuButton);
     menuDescriptions.style.width = "0px";
     ismenuDescriptionsClosed = true;
     editor.style.width = "calc(100% - 300px)";
