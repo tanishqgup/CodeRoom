@@ -14,7 +14,7 @@ let MY_ID = undefined;
 
 const myPeer = new Peer(undefined, {
     host: "/",
-    port: "443",
+    port: "https://code--room-peerserver.herokuapp.com/",
 });
 
 const peers = {};
