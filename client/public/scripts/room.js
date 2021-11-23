@@ -1,11 +1,23 @@
+// const { Peer } = require("./peerjs.min");
+
 const socket = io("http://localhost:3000", {
     transports: ["websocket"],
 });
 // const socket = io("/"); // for heroku
-
 const MY_NAME = "Tanishq";
 let MY_ID = undefined;
-const ROOM_ID = 1;
+
+const myPeer = new Peer(undefined, {
+    host: "/",
+    port: "3001",
+});
+
+const peers = {};
+
+myPeer.on("open", (id) => {
+    MY_ID = id;
+    sendJoinToServer();
+});
 
 const today = new Date();
 
@@ -28,7 +40,59 @@ const menuDescriptions = document.querySelector(".menuDescriptions"),
     messageContainer = document.querySelector(".messageContainer"),
     videoTab = document.querySelector(".videotab");
 
+var myVideoStream;
 
+navigator.mediaDevices
+    .getUserMedia({
+        video: true,
+        audio: true,
+    })
+    .then((stream) => {
+        myVideoStream = stream;
+        const myVideoDiv = document.createElement("div");
+        myVideoDiv.className = "videoDiv";
+        const videoObject = document.createElement("video");
+        videoObject.muted = "true";
+        addVideoStream(videoObject, stream, myVideoDiv);
+        myPeer.on("call", (call) => {
+            call.answer(stream);
+            const videoDiv = document.createElement("div");
+            videoDiv.className = "videoDiv";
+            const videoObject = document.createElement("video");
+            call.on("stream", (userVideoStream) => {
+                addVideoStream(videoObject, userVideoStream, videoDiv);
+            });
+        });
+        socket.on("newUserJoined", ({ userName, userId }) => {
+            appendNotification(userName + " has landed in the room");
+            setTimeout(() => {
+                connectToNewUser(userId, stream);
+            }, 3000);
+        });
+    });
+
+function addVideoStream(video, stream, videoDiv) {
+    video.srcObject = stream;
+    video.addEventListener("loadedmetadata", () => {
+        video.play();
+    });
+    videoDiv.append(video);
+    videoTab.append(videoDiv);
+}
+
+function connectToNewUser(userId, stream) {
+    const call = myPeer.call(userId, stream);
+    const videoDiv = document.createElement("div");
+    videoDiv.className = "videoDiv";
+    const videoObject = document.createElement("video");
+    call.on("stream", (userVideoStream) => {
+        addVideoStream(videoObject, userVideoStream, videoDiv);
+    });
+    call.on("close", () => {
+        videoDiv.remove();
+    });
+    peers[userId] = call;
+}
 
 const menuDescriptionsMappings = {
     editorSettings: settingMenu,
@@ -272,6 +336,7 @@ function toggleVideo() {
         videoClosedIcon.style.display = "none";
     }
     isVideoOpen = !isVideoOpen;
+    myVideoStream.getVideoTracks()[0].stop();
 }
 
 function toggleAudio() {
@@ -314,9 +379,9 @@ function sendMessageToServer(message, user, time) {
 
 // Receiving data from servers
 // 1. receive acknowledgement from server
-socket.on("newUserJoined", ({ MY_NAME, MY_ID }) => {
-    appendNotification(MY_NAME + " has landed in the room");
-});
+// socket.on("newUserJoined", ({ MY_NAME, MY_ID }) => {
+//     appendNotification(MY_NAME + " has landed in the room with id " + MY_ID);
+// });
 // 2. receive code from server
 socket.on("code-changed", (code) => {
     codeInstance.setOption("value", code);
@@ -325,6 +390,11 @@ socket.on("code-changed", (code) => {
 socket.on("messageReceived", ({ message, user, time }) => {
     appendMessageOfOther(message, user, time);
 });
+
+socket.on("user-disconnected", ({ userId }) => {
+    appendNotification(userId + " have left the room");
+    if(peers[userId]) peers[userId].close();
+})
 
 // Running Code
 const runner = async () => {
