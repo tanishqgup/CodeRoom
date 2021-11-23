@@ -11,19 +11,18 @@ app.use(express.static(path.join("./client")));
 
 io.on("connection", (socket) => {
     console.log("A user connected");
-    socket.on("join-Room", ({ roomId, userName }) => {
+    socket.on("join-Room", ({ ROOM_ID, MY_ID, MY_NAME }) => {
+        console.log(ROOM_ID, MY_ID, MY_NAME);
         console.log("user joined the room");
-        
-        socket.join(roomId);
-
-        socket.broadcast.to(roomId).emit("newUserJoined", userName);
+        socket.join(ROOM_ID);
+        socket.broadcast.to(ROOM_ID).emit("newUserJoined", {MY_NAME, MY_ID});
 
         socket.on("code-changed", (code) => {
-            socket.broadcast.to(roomId).emit("code-changed", code);
+            socket.broadcast.to(ROOM_ID).emit("code-changed", code);
         });
 
         socket.on("messageSent", ({message, user, time}) => {
-            socket.broadcast.to(roomId).emit("messageReceived", {message, user, time});
+            socket.broadcast.to(ROOM_ID).emit("messageReceived", {message, user, time});
         });
     });
 });

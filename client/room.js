@@ -1,7 +1,11 @@
-// const socket = io("http://localhost:3000", {
-//     transports: ["websocket"],
-// });
-const socket = io("/"); // for heroku
+const socket = io("http://localhost:3000", {
+    transports: ["websocket"],
+});
+// const socket = io("/"); // for heroku
+
+const MY_NAME = "Tanishq";
+let MY_ID = undefined;
+const ROOM_ID = 1;
 
 const today = new Date();
 
@@ -21,7 +25,10 @@ const menuDescriptions = document.querySelector(".menuDescriptions"),
     input = document.getElementById("input"),
     output = document.getElementById("output"),
     messageInput = document.querySelector(".messageInput"),
-    messageContainer = document.querySelector(".messageContainer");
+    messageContainer = document.querySelector(".messageContainer"),
+    videoTab = document.querySelector(".videotab");
+
+
 
 const menuDescriptionsMappings = {
     editorSettings: settingMenu,
@@ -224,8 +231,16 @@ function sendMessage() {
     if (messageInput.value === "" || messageInput.value.trim() === "") {
         return;
     }
-    appendMessageOfMe(messageInput.value, "You", today.getHours() + ":" + today.getMinutes());
-    sendMessageToServer(messageInput.value, "Tanishq", today.getHours() + ":" + today.getMinutes());
+    appendMessageOfMe(
+        messageInput.value,
+        "You",
+        today.getHours() + ":" + today.getMinutes()
+    );
+    sendMessageToServer(
+        messageInput.value,
+        "Tanishq",
+        today.getHours() + ":" + today.getMinutes()
+    );
     messageInput.value = "";
 }
 
@@ -279,11 +294,13 @@ messageInput.addEventListener("keyup", function (event) {
 });
 
 // Working with socketio Rooms
-const roomId = 1; //prompt("Enter your roomId");
-const userName = "tanishq"; //prompt("Enter your Name");
+// const roomId = 1; //prompt("Enter your roomId");
+// const userName = "tanishq"; //prompt("Enter your Name");
 
 // 1. when a user joins room
-socket.emit("join-Room", { roomId, userName });
+function sendJoinToServer() {
+    socket.emit("join-Room", { ROOM_ID, MY_ID, MY_NAME });
+}
 
 // 2. Sending code to server
 editor.addEventListener("keyup", () => {
@@ -297,10 +314,8 @@ function sendMessageToServer(message, user, time) {
 
 // Receiving data from servers
 // 1. receive acknowledgement from server
-socket.on("newUserJoined", (userName) => {
-    console.log(userName + " has joined the room");
-    appendNotification(userName + " has landed in the room");
-
+socket.on("newUserJoined", ({ MY_NAME, MY_ID }) => {
+    appendNotification(MY_NAME + " has landed in the room");
 });
 // 2. receive code from server
 socket.on("code-changed", (code) => {
