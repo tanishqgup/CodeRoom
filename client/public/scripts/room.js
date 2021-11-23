@@ -9,19 +9,21 @@ let MY_ID = undefined;
 
 // const myPeer = new Peer(undefined, {
 //     host: "/",
-//     port: "3001",
+//     // port: "3001",
+//     port: "https://9000-apricot-guineafowl-g62znfot.ws-us17.gitpod.io",
 // });
 
 const myPeer = new Peer(undefined, {
-    host: "/",
+    host: "https://code--room.herokuapp.com",
     port: "443",
-    path: "/peerjs"
+    secure: true,
 });
 
 const peers = {};
 
 myPeer.on("open", (id) => {
     MY_ID = id;
+    console.log(id);
     sendJoinToServer();
 });
 
