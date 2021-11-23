@@ -7,9 +7,14 @@ const socket = io("/"); // for heroku
 const MY_NAME = "Tanishq";
 let MY_ID = undefined;
 
+// const myPeer = new Peer(undefined, {
+//     host: "/",
+//     port: "3001",
+// });
+
 const myPeer = new Peer(undefined, {
     host: "/",
-    port: "3001",
+    port: "443",
 });
 
 const peers = {};
