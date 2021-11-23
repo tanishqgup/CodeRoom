@@ -1,9 +1,9 @@
 // const { Peer } = require("./peerjs.min");
 
-const socket = io("http://localhost:3000", {
-    transports: ["websocket"],
-});
-// const socket = io("/"); // for heroku
+// const socket = io("http://localhost:3000", {
+//     transports: ["websocket"],
+// });
+const socket = io("/"); // for heroku
 const MY_NAME = "Tanishq";
 let MY_ID = undefined;
 
