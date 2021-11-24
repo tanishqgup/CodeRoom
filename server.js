@@ -15,7 +15,6 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join("./client/public")));
 
 app.get("/", (req, res) => {
-    // res.redirect(`/${uuidV4()}`)
     res.render("homepage");
 });
 
@@ -29,19 +28,32 @@ app.get("/JoinRoom", (req, res) => {
     res.render("joinRoom");
 })
 
+// app.get("/:room/:name", (req, res) => {
+//     console.log(req.params);
+//     const idx = createdRooms.find(currentRoomID => currentRoomID === req.params.room);
+//     if(idx === undefined) {
+//         res.render("idNotFound");
+//         return;
+//     }
+//     res.render("index", { roomID: req.params.room, userName: req.params.name });
+//     // res.redirect("index", { roomID: req.params.room, userName: req.params.name });
+// });
+
 app.get("/:room", (req, res) => {
+    console.log(req.params);
     const idx = createdRooms.find(currentRoomID => currentRoomID === req.params.room);
     if(idx === undefined) {
         res.render("idNotFound");
         return;
     }
-    res.render("index", { roomID: req.params.room });
+    res.render("index", { roomID: req.params.room});
+    // res.redirect("index", { roomID: req.params.room, userName: req.params.name });
 });
 
 io.on("connection", (socket) => {
     console.log("A user connected");
-    socket.on("join-Room", ({ ROOM_ID, MY_ID, MY_NAME }) => {
-        const userId = MY_ID, userName = MY_NAME;
+    socket.on("join-Room", ({ ROOM_ID, MY_ID, USER_NAME }) => {
+        const userId = MY_ID, userName = USER_NAME;
         console.log(ROOM_ID, userId, userName);
         console.log("user joined the room");
         socket.join(ROOM_ID);
@@ -58,7 +70,7 @@ io.on("connection", (socket) => {
         });
 
         socket.on("disconnect", () => {
-            socket.broadcast.to(ROOM_ID).emit("user-disconnected", { userId });
+            socket.broadcast.to(ROOM_ID).emit("user-disconnected", { userName });
         })
     });
 });

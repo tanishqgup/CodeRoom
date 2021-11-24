@@ -4,7 +4,6 @@
 //     transports: ["websocket"],
 // });
 const socket = io("/"); // for heroku
-const MY_NAME = "Tanishq";
 let MY_ID = undefined;
 
 // const myPeer = new Peer(undefined, {
@@ -73,7 +72,7 @@ navigator.mediaDevices
             });
         });
         socket.on("newUserJoined", ({ userName, userId }) => {
-            appendNotification(userName + " has landed in the room");
+            appendNotification(userName + " has joined the room. Please wait we are adding his video and audio.");
             setTimeout(() => {
                 connectToNewUser(userId, stream);
             }, 3000);
@@ -311,7 +310,7 @@ function sendMessage() {
     );
     sendMessageToServer(
         messageInput.value,
-        "Tanishq",
+        USER_NAME,
         today.getHours() + ":" + today.getMinutes()
     );
     messageInput.value = "";
@@ -368,12 +367,10 @@ messageInput.addEventListener("keyup", function (event) {
 });
 
 // Working with socketio Rooms
-// const roomId = 1; //prompt("Enter your roomId");
-// const userName = "tanishq"; //prompt("Enter your Name");
 
 // 1. when a user joins room
 function sendJoinToServer() {
-    socket.emit("join-Room", { ROOM_ID, MY_ID, MY_NAME });
+    socket.emit("join-Room", { ROOM_ID, MY_ID, USER_NAME });
 }
 
 // 2. Sending code to server
@@ -388,8 +385,8 @@ function sendMessageToServer(message, user, time) {
 
 // Receiving data from servers
 // 1. receive acknowledgement from server
-// socket.on("newUserJoined", ({ MY_NAME, MY_ID }) => {
-//     appendNotification(MY_NAME + " has landed in the room with id " + MY_ID);
+// socket.on("newUserJoined", ({ USER_NAME, MY_ID }) => {
+//     appendNotification(USER_NAME + " has landed in the room with id " + MY_ID);
 // });
 // 2. receive code from server
 socket.on("code-changed", (code) => {
@@ -400,9 +397,9 @@ socket.on("messageReceived", ({ message, user, time }) => {
     appendMessageOfOther(message, user, time);
 });
 
-socket.on("user-disconnected", ({ userId }) => {
-    appendNotification(userId + " have left the room");
-    if(peers[userId]) peers[userId].close();
+socket.on("user-disconnected", ({ userName }) => {
+    appendNotification(userName + " have left the room");
+    if(peers[userName]) peers[userName].close();
 })
 
 // Running Code
