@@ -13,11 +13,13 @@ let MY_ID = undefined;
 //     port: "https://9000-apricot-guineafowl-g62znfot.ws-us17.gitpod.io",
 // });
 
-const myPeer = new Peer(undefined, {
-    host: "https://code--room.herokuapp.com",
-    port: "443",
-    secure: true,
-});
+const myPeer = new Peer(undefined);
+
+// const myPeer = new Peer(undefined, {
+//     host: "https://code--room.herokuapp.com",
+//     port: "443",
+//     secure: true,
+// });
 
 const peers = {};
 
