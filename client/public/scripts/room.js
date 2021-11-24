@@ -25,7 +25,6 @@ const peers = {};
 
 myPeer.on("open", (id) => {
     MY_ID = id;
-    console.log(id);
     sendJoinToServer();
 });
 

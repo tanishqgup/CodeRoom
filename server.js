@@ -13,8 +13,17 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join("./client/public")));
 
 app.get("/", (req, res) => {
-    res.redirect(`/${uuidV4()}`)
+    // res.redirect(`/${uuidV4()}`)
+    res.render("homepage");
 });
+
+app.get("/getNameInfo", (req, res) => {
+    res.render("getInfo", { ROOM_ID: uuidV4() });
+})
+
+app.get("/JoinRoom", (req, res) => {
+    res.render("joinRoom");
+})
 
 app.get("/:room", (req, res) => {
     res.render("index", { roomID: req.params.room });

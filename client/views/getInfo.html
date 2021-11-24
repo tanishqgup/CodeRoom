@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>CodeToMeet</title>
-        <link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href="../public/stylesheets/getInfo.css" />
     </head>
     <body>
         <div class="container">
@@ -54,57 +54,35 @@
                     </svg>
                 </div>
             </div>
-            <div class="main-section">
-                <div class="content">
-                    <p class="moto">Share Code in Real-time with Developers</p>
-                    <p class="description">
-                        An online code editor for interview, troubleshooting,
-                        teaching & more...
+            <div class="inputContainer">
+                <div class="roomID">
+                    <p>
+                        Your Room Id is :
+                        <span class="roomIdFromServer"
+                            >1313-1313-4546-1314-6543</span
+                        >
                     </p>
-                    <div class="buttonContainer">
-                        <button class="createRoomButton">Create Room</button>
-                        <span class="or">or</span>
-                        <button class="joinRoomButton">Join Room</button>
-                    </div>
-                    <p class="offer">Guess what? All of this is free.</p>
                 </div>
-            </div>
-            <div class="links">
-                <div class="cards">
-                    <div class="card1">
-                        <p class="heading">Code with your team</p>
-                        <p class="description">
-                            Open a CodeToMeet editor, write or copy code, then
-                            share it with friends and colleagues. Pair program
-                            and troubleshoot together.
-                        </p>
-                        <button class="button">Hack Together</button>
-                    </div>
-                    <div class="card2">
-                        <p class="heading">Interview developers</p>
-                        <p class="description">
-                            Set coding tasks and observe in real-time when
-                            interviewing remotely or in person. Nobody likes
-                            writing code on a whiteboard.
-                        </p>
-                        <button class="button">Start An Interview</button>
-                    </div>
-                    <div class="card3">
-                        <p class="heading">Teach people to program</p>
-                        <p class="description">
-                            Share your code with students and peers then educate
-                            them. Universities and colleges around the world use
-                            Codeshare every day.
-                        </p>
-                        <button class="button">Teach Code</button>
+                <div class="NameSection">
+                    <label for="name">Please Enter Your Name  : </label>
+                    <div class="fake">
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            autocomplete="off"
+                            placeholder="Enter Your Name"
+                        />
                     </div>
                 </div>
+                <button>Enter Room</button>
             </div>
         </div>
         <div class="footer">
             <p>
-                Made by <a href="#">Tanishq Gupta</a> with <span>&hearts;</span>. For help and support
-                shoot us an <a href="#">email</a>.
+                Made by <a href="#">Tanishq Gupta</a> with
+                <span>&hearts;</span>. For help and support shoot us an
+                <a href="#">email</a>.
             </p>
         </div>
     </body>
