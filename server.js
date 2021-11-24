@@ -6,6 +6,8 @@ const socketio = require("socket.io");
 const io = socketio(server);
 const { v4: uuidV4 } = require('uuid');
 
+var createdRooms = [];
+
 const port = process.env.PORT || 3000;
 
 app.set("views", path.join("./client/views"));  
@@ -18,7 +20,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/getNameInfo", (req, res) => {
-    res.render("getInfo", { ROOM_ID: uuidV4() });
+    const ROOM_ID = uuidV4();
+    createdRooms.push(ROOM_ID);
+    res.render("getInfo", { ROOM_ID });
 })
 
 app.get("/JoinRoom", (req, res) => {
@@ -26,6 +30,11 @@ app.get("/JoinRoom", (req, res) => {
 })
 
 app.get("/:room", (req, res) => {
+    const idx = createdRooms.find(currentRoomID => currentRoomID === req.params.room);
+    if(idx === undefined) {
+        res.render("idNotFound");
+        return;
+    }
     res.render("index", { roomID: req.params.room });
 });
 
