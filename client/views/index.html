@@ -55,11 +55,7 @@
             src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.2/mode/clike/clike.min.js"
         ></script>
         <!-- Language Scripts Ends -->
-        <link rel="stylesheet" href="./stylesheets/room.css" />
-        <script>
-            const ROOM_ID = "<%= roomID %>";
-            const USER_NAME = "Tanishq";
-        </script>
+        <link rel="stylesheet" href="../public/stylesheets/room.css" />
     </head>
     <body>
         <div class="header">
@@ -107,7 +103,7 @@
                 </svg>
             </div>
             <div class="buttons">
-                <button class="share-button" onclick="handleCopyId()">
+                <button class="share-button">
                     <svg
                         aria-hidden="true"
                         focusable="false"
@@ -311,7 +307,7 @@
                         <p>Audio</p>
                     </div>
                 </div>
-                <!-- <div class="menu-option option7">
+                <div class="menu-option option7">
                     <button onclick="toggleVideo()">
                         <i id="video-close-icon">
                             <svg fill="rgba(255, 255, 255, 0.6)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" >
@@ -330,7 +326,7 @@
                     <div class="tooltip">
                         <p>Video</p>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="editor">
                 <div class="notificationsCointainer"></div>
@@ -346,6 +342,6 @@
         <!-- <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script> -->
         <script src="./scripts/peerjs.min.js"></script>
 
-        <script src="./scripts/room.js"></script>
+        <script src="../public/scripts/room.js"></script>
     </body>
 </html>

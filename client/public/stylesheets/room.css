@@ -48,6 +48,7 @@
     line-height: 35px;
     font-size: 17px;
     font-weight: 300;
+    cursor: pointer;
 }
 
 .buttons .share-button svg {

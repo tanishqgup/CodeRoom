@@ -56,6 +56,7 @@ navigator.mediaDevices
         audio: true,
     })
     .then((stream) => {
+        stream.getAudioTracks()[0].enabled = true;
         myVideoStream = stream;
         const myVideoDiv = document.createElement("div");
         myVideoDiv.className = "videoDiv";
@@ -356,6 +357,13 @@ function toggleAudio() {
         audioClosedIcon.style.display = "none";
     }
     isAudioOpen = !isAudioOpen;
+    if(isAudioOpen) myVideoStream.getAudioTracks()[0].enabled = true;
+    else myVideoStream.getAudioTracks()[0].enabled = false;
+}
+
+function handleCopyId() {
+    navigator.clipboard.writeText(ROOM_ID);
+    appendNotification("Room Id copied to clipboard");
 }
 
 // eventlistners
