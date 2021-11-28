@@ -403,9 +403,9 @@ socket.on("messageReceived", ({ message, user, time }) => {
     appendMessageOfOther(message, user, time);
 });
 
-socket.on("user-disconnected", ({ userName }) => {
+socket.on("user-disconnected", ({ userName, userId }) => {
     appendNotification(userName + " have left the room");
-    if(peers[userName]) peers[userName].close();
+    if(peers[userId]) peers[userId].close();
 })
 
 // Running Code
