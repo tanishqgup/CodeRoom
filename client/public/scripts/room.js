@@ -401,6 +401,7 @@ socket.on("code-changed", (code) => {
 // 3. receive message from other users
 socket.on("messageReceived", ({ message, user, time }) => {
     appendMessageOfOther(message, user, time);
+    appendNotification(user + " has sent a message on in messages.");
 });
 
 socket.on("user-disconnected", ({ userName, userId }) => {
