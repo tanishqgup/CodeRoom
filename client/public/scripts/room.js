@@ -1,10 +1,10 @@
 const USER_NAME = sessionStorage.getItem("name");
 
 if(USER_NAME === null) {
-    window.location.href = "/JoinRoom";
+    window.location.href = "/JoinRoom/" + ROOM_ID;
 }
 
-const socket = io("/"); // for heroku
+const socket = io("/");
 let MY_ID = undefined;
 
 const myPeer = new Peer(undefined);

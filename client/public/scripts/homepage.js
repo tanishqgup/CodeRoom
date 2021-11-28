@@ -5,7 +5,3 @@ function redirectToGetInfoPage() {
 function redirectToJoinRoomInfoPage() {
     window.location.href = "JoinRoom";
 }
-
-// sessionStorage.setItem("name", "Tanishq");
-// localStorage.setItem("name", "Tanishq");
-// console.log(localStorage.getItem("name"));

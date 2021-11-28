@@ -25,43 +25,26 @@ app.get("/getNameInfo", (req, res) => {
 })
 
 app.get("/JoinRoom", (req, res) => {
-    console.log("a");
     res.render("joinRoom", { roomID : "NO_ID" });
 })
 
-// app.get("/JoinRoom/:id", (req, res) => {
-//     console.log("b ", req.params);
-//     res.render("joinRoom", { roomID : req.params.id });
-// })
-
-// app.get("/:room/:name", (req, res) => {
-//     console.log(req.params);
-//     const idx = createdRooms.find(currentRoomID => currentRoomID === req.params.room);
-//     if(idx === undefined) {
-//         res.render("idNotFound");
-//         return;
-//     }
-//     res.render("index", { roomID: req.params.room, userName: req.params.name });
-//     // res.redirect("index", { roomID: req.params.room, userName: req.params.name });
-// });
+app.get("/JoinRoom/:id", (req, res) => {
+    res.render("joinRoom", { roomID : req.params.id });
+})
 
 app.get("/:room", (req, res) => {
-    console.log(req.params, " hello");
     const idx = createdRooms.find(currentRoomID => currentRoomID === req.params.room);
     if(idx === undefined) {
         res.render("idNotFound");
-        return;
     }
-    res.render("index", { roomID: req.params.room});
-    // res.redirect("index", { roomID: req.params.room, userName: req.params.name });
+    else {
+        res.render("index", { roomID: req.params.room});
+    }
 });
 
 io.on("connection", (socket) => {
-    console.log("A user connected");
     socket.on("join-Room", ({ ROOM_ID, MY_ID, USER_NAME }) => {
         const userId = MY_ID, userName = USER_NAME;
-        console.log(ROOM_ID, userId, userName);
-        console.log("user joined the room");
         socket.join(ROOM_ID);
         socket.broadcast.to(ROOM_ID).emit("newUserJoined", { userName, userId });
 
