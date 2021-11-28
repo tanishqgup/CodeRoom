@@ -58,7 +58,6 @@
         <link rel="stylesheet" href="./stylesheets/room.css" />
         <script>
             const ROOM_ID = "<%= roomID %>";
-            const USER_NAME = sessionStorage.getItem("name");
         </script>
     </head>
     <body>
@@ -107,6 +106,9 @@
                 </svg>
             </div>
             <div class="buttons">
+                <button class="leave-room" onclick="handleLeaveRoom()">
+                    Leave Room
+                </button>
                 <button class="share-button" onclick="handleCopyId()">
                     <svg
                         aria-hidden="true"

@@ -28,6 +28,7 @@
 
 .buttons {
     width: 110px;
+    width: 220px;
     margin-right: 10px;
     height: 100%;
     display: flex;
@@ -36,7 +37,7 @@
 
 .buttons .share-button {
     height: 80%;
-    width: 100%;
+    width: 49%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,6 +50,27 @@
     font-size: 17px;
     font-weight: 300;
     cursor: pointer;
+}
+
+.leave-room {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    width: 49%;
+    background-color: rgb(236, 51, 96);
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-weight: 400;
+    line-height: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.leave-room:hover {
+    background-color: rgb(225, 51, 96);
 }
 
 .buttons .share-button svg {

@@ -3,6 +3,11 @@
 // const socket = io("http://localhost:3000", {
 //     transports: ["websocket"],
 // });
+const USER_NAME = sessionStorage.getItem("name");
+if(USER_NAME === null) {
+    window.location.href = "/JoinRoom";
+}
+
 const socket = io("/"); // for heroku
 let MY_ID = undefined;
 
@@ -364,6 +369,12 @@ function toggleAudio() {
 function handleCopyId() {
     navigator.clipboard.writeText(ROOM_ID);
     appendNotification("Room Id copied to clipboard");
+}
+
+function handleLeaveRoom() {
+    sessionStorage.removeItem("name");
+    appendNotification(USER_NAME + " have left the room");
+    window.location.href = "/";
 }
 
 // eventlistners
