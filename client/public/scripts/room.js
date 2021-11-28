@@ -114,7 +114,7 @@ let currentLanguage = "cpp",
 
 let ismenuDescriptionsClosed = true,
     isVideoOpen = false,
-    isAudioOpen = false;
+    isAudioOpen = true;
 
 let activeNotificationIds = [];
 
