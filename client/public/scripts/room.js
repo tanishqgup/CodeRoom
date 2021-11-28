@@ -341,9 +341,11 @@ function toggleAudio() {
     if (isAudioOpen) {
         audioOpenIcon.style.display = "none";
         audioClosedIcon.style.display = "block";
+        appendNotification("Your mike is off. If you want to enable it then press audio button.")
     } else {
         audioOpenIcon.style.display = "block";
         audioClosedIcon.style.display = "none";
+        appendNotification("Your mike is on. If you want to disable it then press audio button.")
     }
     isAudioOpen = !isAudioOpen;
     if(isAudioOpen) myVideoStream.getAudioTracks()[0].enabled = true;
@@ -374,6 +376,7 @@ messageInput.addEventListener("keyup", function (event) {
 // 1. when a user joins room
 function sendJoinToServer() {
     socket.emit("join-Room", { ROOM_ID, MY_ID, USER_NAME });
+    appendNotification("Your mike is on. If you want to disable it then press audio button.")
 }
 
 // 2. Sending code to server
