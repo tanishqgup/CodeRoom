@@ -1,9 +1,5 @@
-// const { Peer } = require("./peerjs.min");
-
-// const socket = io("http://localhost:3000", {
-//     transports: ["websocket"],
-// });
 const USER_NAME = sessionStorage.getItem("name");
+
 if(USER_NAME === null) {
     window.location.href = "/JoinRoom";
 }
@@ -11,19 +7,7 @@ if(USER_NAME === null) {
 const socket = io("/"); // for heroku
 let MY_ID = undefined;
 
-// const myPeer = new Peer(undefined, {
-//     host: "/",
-//     // port: "3001",
-//     port: "https://9000-apricot-guineafowl-g62znfot.ws-us17.gitpod.io",
-// });
-
 const myPeer = new Peer(undefined);
-
-// const myPeer = new Peer(undefined, {
-//     host: "https://code--room.herokuapp.com",
-//     port: "443",
-//     secure: true,
-// });
 
 const peers = {};
 

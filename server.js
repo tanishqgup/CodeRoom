@@ -16,7 +16,6 @@ app.use(express.static(path.join("./client/public")));
 
 app.get("/", (req, res) => {
     res.render("homepage");
-    return;
 });
 
 app.get("/getNameInfo", (req, res) => {
@@ -26,8 +25,14 @@ app.get("/getNameInfo", (req, res) => {
 })
 
 app.get("/JoinRoom", (req, res) => {
-    res.render("joinRoom");
+    console.log("a");
+    res.render("joinRoom", { roomID : "NO_ID" });
 })
+
+// app.get("/JoinRoom/:id", (req, res) => {
+//     console.log("b ", req.params);
+//     res.render("joinRoom", { roomID : req.params.id });
+// })
 
 // app.get("/:room/:name", (req, res) => {
 //     console.log(req.params);
