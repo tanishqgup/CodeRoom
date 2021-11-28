@@ -16,6 +16,7 @@ app.use(express.static(path.join("./client/public")));
 
 app.get("/", (req, res) => {
     res.render("homepage");
+    return;
 });
 
 app.get("/getNameInfo", (req, res) => {
@@ -40,7 +41,7 @@ app.get("/JoinRoom", (req, res) => {
 // });
 
 app.get("/:room", (req, res) => {
-    console.log(req.params);
+    console.log(req.params, " hello");
     const idx = createdRooms.find(currentRoomID => currentRoomID === req.params.room);
     if(idx === undefined) {
         res.render("idNotFound");
