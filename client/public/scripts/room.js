@@ -513,3 +513,7 @@ function handleShowPopUp() {
     }
     document.querySelector(".pop_up").style.display = "flex";
 }
+
+function roomExpired() {
+    window.location.href = "/";
+}
