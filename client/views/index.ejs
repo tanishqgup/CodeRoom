@@ -106,7 +106,7 @@
                 </svg>
             </div>
             <div class="buttons">
-                <button class="leave-room" onclick="handleLeaveRoom()">
+                <button class="leave-room" onclick="handleShowPopUp()">
                     Leave Room
                 </button>
                 <button class="share-button" onclick="handleCopyId()">
@@ -338,6 +338,25 @@
                 <div class="notificationsCointainer"></div>
             </div>
             <div class="videotab">
+            </div>
+        </div>
+        <div class="pop_up">
+            <div class="box">
+                <div class="pop_close_div">
+                    <button class="closepop" onclick="handleClosePopUp()">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="textContainer">
+                    <div>
+                        <p>Are you sure you want to leave the room</p>
+                        <p>
+                            We don't save messages for privacy reasons. So your all
+                            messages will be deleted.
+                        </p>
+                    </div>
+                    <button class="pop_up_leave" onclick="handleLeaveRoom()">Leave</button>
+                </div>
             </div>
         </div>
         <!-- <script src="http://localhost/socket.io/socket.io.js"></script> -->

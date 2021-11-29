@@ -484,3 +484,18 @@ function uuid() {
         }
     );
 }
+
+
+window.onbeforeunload = function (e) {
+    e = e || window.event;
+    if (e) {e.returnValue = 'Sure?';}
+    return 'Sure?';
+};
+
+function handleClosePopUp() {
+    document.querySelector(".pop_up").style.display = "none";
+}
+
+function handleShowPopUp() {
+    document.querySelector(".pop_up").style.display = "flex";
+}
