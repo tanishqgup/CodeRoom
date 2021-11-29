@@ -119,6 +119,7 @@ io.on("connection", (socket) => {
         const userId = MY_ID, userName = USER_NAME;
         socket.join(ROOM_ID);
         socket.broadcast.to(ROOM_ID).emit("newUserJoined", { userName, userId });
+        socket.emit("updateUsersCount", { countOfUsersFromServer: usersInRoomId(ROOM_ID) });
 
         socket.on("code-changed", (code) => {
             socket.broadcast.to(ROOM_ID).emit("code-changed", code);
@@ -167,4 +168,8 @@ function leaveRoom(USER_NAME, USER_ID, ROOM_ID) {
         delete currentlyActiveRooms[ROOM_ID];
     }
     console.log(currentlyActiveRooms);
+}
+
+function usersInRoomId(ROOM_ID) {
+    return Object.keys(currentlyActiveRooms[ROOM_ID]).length;
 }

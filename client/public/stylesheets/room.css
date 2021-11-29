@@ -559,3 +559,10 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+.lastPP {
+    color: red;
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 25px;
+}

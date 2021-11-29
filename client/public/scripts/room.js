@@ -4,6 +4,8 @@ if(USER_NAME === null) {
     window.location.href = "/JoinRoom/" + ROOM_ID;
 }
 
+let totalUsers = 0;
+
 const socket = io("/");
 let MY_ID = undefined;
 
@@ -62,6 +64,7 @@ navigator.mediaDevices
             });
         });
         socket.on("newUserJoined", ({ userName, userId }) => {
+            totalUsers++;
             appendNotification(userName + " has joined the room. Please wait we are adding his video and audio.");
             setTimeout(() => {
                 connectToNewUser(userId, stream);
@@ -406,7 +409,12 @@ socket.on("messageReceived", ({ message, user, time }) => {
 
 socket.on("user-disconnected", ({ userName, userId }) => {
     appendNotification(userName + " have left the room");
+    totalUsers--;
     if(peers[userId]) peers[userId].close();
+})
+
+socket.on("updateUsersCount", ({countOfUsersFromServer}) => {
+    totalUsers = countOfUsersFromServer;
 })
 
 // Running Code
@@ -497,5 +505,11 @@ function handleClosePopUp() {
 }
 
 function handleShowPopUp() {
+    if(totalUsers === 1) {
+        document.querySelector('.lastPP').innerText = "You are the last user in this room .If you will leave the room It will be expired";
+    }
+    else {
+        document.querySelector(".lastPP").innerText = "";
+    }
     document.querySelector(".pop_up").style.display = "flex";
 }
